@@ -16,7 +16,6 @@ namespace Bds.TechTest.Models.Services
         public async Task<SearchResults> Search(string searchTerm)
         {
             var searchResults = new SearchResults();
-            var searchResultItems = new List<SearchResultItem>();
             var searchTasks = webSearchers.Select(x => x.Search(searchTerm)).ToList();
 
             while (searchTasks.Count > 0)
@@ -30,10 +29,10 @@ namespace Bds.TechTest.Models.Services
                     continue;
                 }
 
-                searchResultItems.AddRange(result.Result);
+                foreach (var r in result.Result)
+                    searchResults.AddSearchItem(r);
             }
 
-            searchResults.Results = searchResultItems;
             return searchResults;
         }
     }

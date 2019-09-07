@@ -50,3 +50,14 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.Google {
+    border-radius: 4px;
+    background-color: lightcoral;
+    padding: 2px 4px;
+}
+.Bing {
+    border-radius: 4px;
+    background-color: lightblue;
+    padding: 2px 4px;
+}

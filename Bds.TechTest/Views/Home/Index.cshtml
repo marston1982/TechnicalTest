@@ -37,7 +37,13 @@
         {
             <div class="search-item">
                 <div>@item.Title</div>
-                <div>From : @item.Source</div>
+                <div>
+                    From :
+                    @foreach (var source in item.Source)
+                    {
+                        <span class="@source">@source</span>
+                    }
+                </div>
                 <span class="result-link">@item.Link</span>
             </div>
         }

@@ -1,0 +1,47 @@
+﻿@model Bds.TechTest.Models.ViewModels.HomePageViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="row"
+     style="margin-top: 20px;">
+    <div class="col-12">
+
+        @if (Model.Errors.Count() > 0)
+        {
+            <div class="alert alert-danger" role="alert">
+                <ul class="error-list">
+                    @foreach (var item in Model.Errors)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+            </div>
+        }
+
+
+        @using (Html.BeginForm())
+        {
+
+            <div class="input-group">
+                @Html.TextBoxFor(x => x.SearchTerm, new { @class = "form-control", placeholder= "Search for..." })
+                <span class="input-group-btn">
+                    <input class="btn btn-primary" type="submit" value="Search"/>
+                </span>
+            </div>
+
+           }
+
+        @foreach (var item in Model.SearchResults)
+        {
+            <div class="search-item">
+                <div>@item.Title</div>
+                <div>From : @item.Source</div>
+                <span class="result-link">@item.Link</span>
+            </div>
+        }
+
+    </div>
+</div>
+

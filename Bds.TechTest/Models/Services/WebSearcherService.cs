@@ -8,15 +8,17 @@ namespace Bds.TechTest.Models.Services
 {
     public class WebSearcherService
     {
-        private List<SearchEngineQuery> webSearchers = new List<SearchEngineQuery> {
-            new GoogleSearcher(),
-            new BingSearcher()
-        };
+        private readonly IQuerySourceService _querySourceService;
+
+        public WebSearcherService(IQuerySourceService querySourceService)
+        {
+            _querySourceService = querySourceService;
+        }
 
         public async Task<SearchResults> Search(string searchTerm)
         {
             var searchResults = new SearchResults();
-            var searchTasks = webSearchers.Select(x => x.Search(searchTerm)).ToList();
+            var searchTasks = _querySourceService.GetQuerySources().Select(x => x.Search(searchTerm)).ToList();
 
             while (searchTasks.Count > 0)
             {

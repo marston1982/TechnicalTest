@@ -24,10 +24,6 @@ namespace Bds.TechTest.Models.WebSearchers
             var doc = new HtmlDocument();
             doc.Load(htmlStream);
 
-            var qwe = doc
-                .DocumentNode
-                .SelectNodes("//html");
-
             return doc
                 .DocumentNode
                 .SelectNodes("//div[@class='BNeawe vvjwJb AP7Wnd']")

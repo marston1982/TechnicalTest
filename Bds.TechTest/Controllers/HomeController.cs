@@ -18,7 +18,7 @@ namespace Bds.TechTest.Controllers
         public HomeController()
         {
             // This would be injected using something like Ninject
-            webSearcherService = new WebSearcherService();
+            webSearcherService = new WebSearcherService(new QuerySourceService());
         }
 
         public IActionResult Index()

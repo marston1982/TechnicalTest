@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bds.TechTest.Models.WebSearchers
 {
-    public abstract class SearchEngineQuery
+    public abstract class SearchEngineQuery : ISearchEngineQuery
     {
         public async Task<IEnumerable<SearchResultItem>> Search(string searchTerm)
         {

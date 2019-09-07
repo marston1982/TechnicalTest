@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Bds.TechTest.Models.WebSearchers
 {
@@ -26,13 +24,24 @@ namespace Bds.TechTest.Models.WebSearchers
             var doc = new HtmlDocument();
             doc.Load(htmlStream);
 
-            // Gets the link google uses but it has google appended stuff
-            // x.Ancestors("a").First().Attributes["href"].Value
+            var qwe = doc
+                .DocumentNode
+                .SelectNodes("//html");
 
             return doc
                 .DocumentNode
                 .SelectNodes("//div[@class='BNeawe vvjwJb AP7Wnd']")
-                .Select(x => new SearchResultItem(x.InnerText, x.NextSibling.InnerText, GetSourceName()));
+                .Select(x => new SearchResultItem(x.InnerText, ProcessUrl(x.Ancestors("a").First().Attributes["href"].Value), GetSourceName()));
+        }
+
+        /// <summary> Google adds extra parameters before and after the URL that we want.  I believe the actual URLs are
+        /// extracted by JavaScript on Googles end but as we are screen scraping, no JS is run.  </summary>
+        /// <param name="url"> The full URL from the screen scrape. </param>
+        /// <returns> The actual URL for the search result. </returns>
+        private string ProcessUrl(string url)
+        {
+            var urlEnd = url.IndexOf("&amp;sa") - 7;
+            return url.Substring(7, urlEnd);
         }
     }
 }

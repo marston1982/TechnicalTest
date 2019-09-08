@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Bds.TechTest.Models.ViewModels
 {
@@ -17,5 +18,21 @@ namespace Bds.TechTest.Models.ViewModels
         public IEnumerable<SearchResultItem> SearchResults { get; set; }
 
         public IEnumerable<string> Errors { get; set; }
+
+        public bool HasSearchResults
+        {
+            get
+            {
+                return SearchResults.Count() > 0;
+            }
+        }
+
+        public bool HasErrors
+        {
+            get
+            {
+                return Errors.Count() > 0;
+            }
+        }
     }
 }

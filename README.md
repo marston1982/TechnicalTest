@@ -1,10 +1,5 @@
 # Blackdot Solutions Technical Test
 
-This repository is just a starter to save you a little setup time when completing our technical test.
-It's entirely optional if you want to use it or not.
+As the brief disallowed the use of API's I chose to implement this with a screen scrape and then use HtmlAgilityPack to parse the results.
 
-To run the app run "dotnet run -p Bds.TechTest"
-To run tests run "dotnet test"
-
-
-Good luck
+It's an asp.net MVC application which can be run by opening in VIsual Studio and running the debugger.  HtmlAgilityPack was imported with Nuget.  The web app will need to be set as the start up project.

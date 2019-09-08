@@ -30,7 +30,7 @@ namespace Bds.TechTest.Controllers
         public async Task<IActionResult> Index(HomePageViewModel model)
         {
             var searchResults = await webSearcherService.Search(model.SearchTerm);
-            model.SearchResults = searchResults.Results;
+            model.SearchResults = searchResults.Results.OrderByDescending(x => x.Source.Count).ThenBy(x => x.Title);
             model.Errors = searchResults.ErrorList;
             return View(model);
         }

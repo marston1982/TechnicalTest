@@ -17,8 +17,20 @@ namespace Bds.TechTest.Models.Services
 
         public async Task<SearchResults> Search(string searchTerm)
         {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                var searchResults = new SearchResults();
+                searchResults.ErrorList.Add("Search term is a required field.");
+                return searchResults;
+            }
+
+            return await QuerySources(_querySourceService.GetQuerySources(), searchTerm);
+        }
+
+        private async Task<SearchResults> QuerySources(List<ISearchEngineQuery> queryEngines, string searchTerm)
+        {
             var searchResults = new SearchResults();
-            var searchTasks = _querySourceService.GetQuerySources().Select(x => x.Search(searchTerm)).ToList();
+            var searchTasks = queryEngines.Select(x => x.Search(searchTerm)).ToList();
 
             while (searchTasks.Count > 0)
             {

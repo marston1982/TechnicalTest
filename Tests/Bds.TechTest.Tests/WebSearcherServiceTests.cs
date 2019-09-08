@@ -25,6 +25,26 @@ namespace Bds.TechTest.Tests
         }
 
         [Test]
+        public async Task When_empty_search_term_is_passed_an_error_is_returned()
+        {
+            var webSearcherService = new WebSearcherService(_querySearcherService.Object);
+            var results = await webSearcherService.Search(string.Empty);
+
+            Assert.AreEqual(1, results.ErrorList.Count);
+            Assert.AreEqual(0, results.Results.Count());
+        }
+
+        [Test]
+        public async Task When_null_search_term_is_passed_an_error_is_returned()
+        {
+            var webSearcherService = new WebSearcherService(_querySearcherService.Object);
+            var results = await webSearcherService.Search(null);
+
+            Assert.AreEqual(1, results.ErrorList.Count);
+            Assert.AreEqual(0, results.Results.Count());
+        }
+
+        [Test]
         public async Task When_searching_any_errors_are_caught_and_handled()
         {
             var q = new Mock<ISearchEngineQuery>();
